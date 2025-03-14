@@ -38,7 +38,11 @@
     cursor: inherit;
 }
 
-.rowposter ::--webkit-scrollbar {
+.rowimg:hover {
+    transform: scale(1.10);
+}
+
+.rowposter::-webkit-scrollbar {
     display: none;
 }
 
