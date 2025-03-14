@@ -1,4 +1,8 @@
-
+.pos-0 {
+    top: 0;
+    left: 0;
+    right: 0;
+}
 
 .full-banner {
     min-height: 100vh;
@@ -7,16 +11,10 @@
     background-size: cover;
 }
 
-.pos-0 {
-    top: 0;
-    left: 0;    
-    right: 0;   
-}
-
 #login {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
 #login input::placeholder {
-    color: white
+    color: rgb(191, 191, 191);
 }
