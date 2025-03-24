@@ -27,43 +27,105 @@
         <div class="perfis container min-vh-100 d-flex flex-column justify-content-center align-items-center">
             <h1 class="text-white mb-5">Quem está assistindo?</h1>
             <div class="cards mb-4 row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 justify-content-center">
-                <div class="card rounded-4">
-                    <a href="#" class="text-decoration-none" onclick="redirecionarPagina('${perfil.nome}')">
-                        <div id="profile-image" class="position-relative rounded-4">
-                            <img src="img/users/avatar.png" alt="Avatar" class="img-fluid rounded-4">
-                            <i class="icon bi bi-pencil-fill"></i>
-                        </div>
-                        <p class="text-secondary text-center mt-2 fs-5 mb-0">Perfil 1</p>
-                    </a>
-                </div>
-                <div class="card rounded-4">
-                    <a href="#" class="text-decoration-none" onclick="redirecionarPagina('${perfil.nome}')">
-                        <div id="profile-image" class="position-relative rounded-4">
-                            <img src="img/users/avatar2.png" alt="Avatar" class="img-fluid rounded-4">
-                            <i class="icon bi bi-pencil-fill"></i>
-                        </div>
-                        <p class="text-secondary text-center mt-2 fs-5 mb-0">Perfil 2</p>
-                    </a>
-                </div>
-                <div class="card rounded-4">
-                    <a href="#" class="text-decoration-none" onclick="redirecionarPagina('${perfil.nome}')">
-                        <div id="profile-image" class="position-relative rounded-4">
-                            <img src="img/users/avatar3.png" alt="Avatar" class="img-fluid rounded-4">
-                            <i class="icon bi bi-pencil-fill"></i>
-                        </div>
-                        <p class="text-secondary text-center mt-2 fs-5 mb-0">Perfil 3</p>
-                    </a>
-                </div>
-                <div class="card rounded-4">
-                    <a data-bs-toggle="modal" data-bs-target="#addPerfil" class="text-decoration-none d-flex flex-column flex-fill">
-                        <i class="bx bxs-plus-circle rounded-4 d-flex justify-content-center align-items-center flex-fill"></i>
-                        <p class="text-secondary text-center mt-2 fs-5 mb-0">Adicionar perfil</p>
-                    </a>
-                </div>
+            
             </div>
-            <button id="gerenciar" type="button" class="btn btn-lg mt-4 rounded-0 gerenciar" onclick="gerenciarPerfil()">Gerenciar perfis</button>
+            <button id="gerenciar" type="button" class="btn btn-lg mt-4 rounded-0 gerenciar" onclick="gerenciarPerfil()">Gerenciar perfis</button>  
+        </div>
+        
+        <div class="edicao min-vh-100 d-none flex-column justify-content-center align-items-center mt-5 py-5" data-bs-theme="dark">
+            <div class="container w-75 mb-4">
+                <h1 class="text-white mb-0">Editar perfil</h1>
+                <hr class="text-white">
+                <div class="row">
+                    <div class="col-sm-3 col-md-2 mb-5">
+                        <div class="position-relative">
+                            <img id="avatar" src="img/users/avatar2.png" alt="" class="rounded-4" width="100%">
+                            <i class="bi bi-pencil-fill btn-avatar"></i>
+                        </div>
+                    </div>
+                    <div class="col-sm-9 col-md-9 text-white mb-2">
+                        <input id="nomeEdicao" type="text" class="form-control" autocomplete="">
+                        <label class="form-label fs-5 mt-3">Idioma</label>
+                        <select class="form-select" name="idioma" id="idioma">
+                            <option>Português</option>
+                            <option>Inglês</option>
+                            <option>Espanhol</option>
+                        </select>
+                        <label class="form-label fs-5 mt-3">Game ID:</label>
+                        <label class="form-label fs-6 mt-1">Seu ID é um nome exclusivo que será usado ao jogar com outros assinantes na GMflix Games. <b>Saiba mais</b></label>
+                        <input type="text" id="gameId" class="form-control" placeholder="Criar Game ID" maxlength="16" oninput="countText()">
+                        <label class="form-label mt-1 fs-6 float-end"><span id="caracters">0</span>/16</label>
+                        <hr class="text-white mt-5">
+                        <label class="form-label fs-5 mt-4 d-block">Configurações de classificação etária:</label>
+                        <label class="form-label fs-6 mt-1 btn-classificacoes">Todas as classificações etárias</label>
+                        <label class="form-label fs-6 mt-1 d-block">Mostrar títulos de todas as classificações etárias para este perfil.</label>
+                        <button type="button" class="btn btn-sm rounded-0 editar my-3">Editar</button>
+                        <hr class="text-white mt-2">
+                        <label class="form-label fs-5 mt-3">Controls de início automático</label>
+                        
+                        <div class="d-flex">
+                            <input class="form-check-input reproducao me-2" type="checkbox" value="" id="chkIniciar" checked>
+                            <label class="form-check-label" for="chkIniciar">
+                                Iniciar automaticamente o próximo episódio de uma série em todos os aparelhos.
+                            </label>
+                        </div>
+                        
+                        <div class="d-flex">
+                            <input class="form-check-input reproducao me-2" type="checkbox" value="" id="chkPrevia" checked>
+                            <label class="form-check-label" for="chkPrevia">
+                                Iniciar automaticamente as prévias ao navegar em todos os aparelhos.
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+                <hr class="text-white">
+                <button class="btn salvar rounded-0 me-2" onclick="atualizarPerfil()">Salvar</button>
+                <button class="btn editar rounded-0 me-2" onclick="exibirPainelPerfil()">Cancelar</button>
+                <button class="btn editar rounded-0" onclick="exibirExcluirPerfil()">Excluir Perfil</button>
+            </div>
+        </div>
+        <div class="excluir min-vh-100 d-none flex-column justify-content-center align-items-center mt-5 py-5" data-bs-theme="dark">
+            <div class="container w-50">
+                <h1 class="text-white mb-0">Deseja Excluir esse perfil?</h1>
+                <hr class="text-white">
+                <div class="row align-items-center">
+                    <div class="col-sm-3 col-md-2 my-3">
+                        <img id="avatarExcluir" src="img/users/avatar2.png" alt="" class="rounded-4" width="100%">
+                        <p class="text-white p-2 pb-0 mb-0"> Todo o histórico deste perfil, inclusive a Minha lista, avaliações e atividdades recentes, serão apagadas para sempre e você não terá mais acesso a elas.</p>
+                    </div>
+                </div>
+                <hr class="text-white">
+                <button class="btn manter rounded-0 me-2" onclick="exibirPainelPerfil()">Manter perfil</button>
+                <button class="btn exclui rounded-0 me-2" onclick="excluirPerfil()">Excluir perfil</button>
+            </div>
         </div>
      </main>
+     <div class="modal fade" id="addPerfil" tabindex="-1" data-bs-theme="dark">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content bg-dark text-white border-secondary">
+                <div class="modal-body px-5">
+                    <button type="button" class="btn-close float-end" data-bs-theme="modal" aria-label="Close"></button>
+                    <p class="text-center fs-3 mt-4 mb-0">Adicionar um Perfil</p>
+                    <p class="text-center mb-4">Adicione um perfil GMflix para outras pessoas.</p>
+                    <div class="d-flex align-items-center my-4">
+                        <img src="img/users/avatar2.png" alt="" class="img-fluid rounded-4 me-3" width="100">
+                        <input type="text" class="form-control" placeholder="Nome" id="Nome" autocomplete="">
+                    </div>
+                    <hr>
+                    <div class="form-check form-switch d-flex justify-content-between align-items-center my-4 p-0">
+                        <div>
+                            <p class="mb-1">Perfil para crianças.</p>
+                            <p class="text-muted mb-0">Ver apenas séries e filmes indicados ao público infantil.</p>
+                        </div>
+                        <input class="form-check-input" type="checkbox" role="switch" id="Crianca">
+                    </div>
+                    <button type="button" class="btn w-100 btn-light mt-3 rounded-0" onclick="adicionarPerfil()">Salvar</button>
+                    <button type="button" class="btn w-100 btn-dark mt-3 mb-4 rounded-0" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+     </div>
 
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
      <script src="js/main.js"></script>
